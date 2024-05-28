@@ -1,0 +1,1 @@
+export const datesEndPoint = "https://dates-planner-api.onrender.com/api/dates/"
