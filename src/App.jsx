@@ -1,40 +1,16 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { datesEndPoint } from "./consts"
-import { TbEdit } from "react-icons/tb";
-import { FaPlus } from "react-icons/fa6";
+import { Dates } from "./Components/Dates"
+import { DateForm } from "./Components/DateForm"
+import { UploadScreen } from "./Components/UploadScreen"
 import "./styles.css"
-
-function Date({ dateInfo }) {
-    const { date, description, done, id, pics_urls, title } = dateInfo
-    return <article className="date_card">
-        <h2>{title}</h2>
-        <div className="date_info">
-            <p>{description}</p>
-            {date !== "0001-01-01" && <p>planned for: {date}</p>}
-            {done && <p>We did it!!</p>}
-            {pics_urls.length !== 0 && <div>
-                <h3>pics ^^:</h3>
-                <div className="images_container">
-                    {pics_urls.map((pic_url, id) =>
-                        <img key={pic_url + id} src={pic_url} />
-                    )}
-                </div>
-            </div>}
-            <button className="pink_button">{<TbEdit size={"100%"} color="var(--claret)"/>}</button>
-        </div>
-    </article>
-}
-
-function Dates({ datesList }) {
-    return <section className="dates_container">
-        {datesList.map(date => <Date key={date.id} dateInfo={date} />)}
-    </section>
-}
 
 export function App() {
 
     const [datesList, setDatesList] = useState([])
     const [error, setError] = useState()
+    const [isDateFormVisible, setDateFormVisibility] = useState(false)
+    const [uploadStatus, setUploadStatus] = useState(null)
 
     function fetchApiData() {
         fetch(datesEndPoint)
@@ -46,13 +22,32 @@ export function App() {
         fetchApiData()
     }, [])
 
+    function switchDateFormVisibility() {
+        setDateFormVisibility(!isDateFormVisible)
+    }
+
+    function uploadDate(dateInfo){
+        setUploadStatus("uploading")
+        fetch(datesEndPoint, {
+            method: "POST",
+            body: JSON.stringify(dateInfo),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => setUploadStatus(res.ok ? "uploaded" : "error"))
+    }
+
     return <main>
+        {uploadStatus && <UploadScreen uploadStatus={uploadStatus}/>}
         <h1>Dates planner</h1>
-        <button className="pink_button large_button">
-            Add new date {<FaPlus size={"95%"} color="var(--claret)" style={{width: "50px"}}/>}
-            </button>
+        {isDateFormVisible
+            ? <DateForm switchDateFormVisibility={switchDateFormVisibility} uploadDate={uploadDate} />
+            : <button className="rounded_button large_button pink_button" onClick={switchDateFormVisibility}>
+                Create new date :D
+                {/* {<FaPlus size={"95%"} color="var(--claret)" style={{ width: "50px" }} />} */}
+            </button>}
         {error && <p>Sorry, an error has ocurred :(</p>}
         <Dates datesList={datesList} />
-
     </main>
 }

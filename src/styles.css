@@ -7,6 +7,7 @@
     --uranian_blue: #c1ecff;
     --pink: #ffc2ca;
     --white: #ffffff;
+    --gray: #525252;
 }
 
 body {
@@ -35,32 +36,56 @@ main {
     padding: 10px 0;
 }
 
-.pink_button{
+.rounded_button {
     height: 35px;
     padding: 4px 0;
     border: none;
-    background-color: var(--pink);
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    color: var(--claret);
     font-size: 22px;
     text-align: center;
     font-family: "Playpen Sans", cursive;
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
+    transition: all .3s;
 }
 
-.large_button{
+.rounded_button:hover {
+    translate: 0 -10%;
+    transform: scale(1, 1.1);
+}
+
+.pink_button {
+    background-color: var(--pink);
+    color: var(--claret);
+}
+
+.blue_button {
+    background-color: var(--uranian_blue);
+    color: var(--claret);
+}
+
+.claret_button {
+    background-color: var(--claret);
+    color: var(--white);
+}
+
+.white_button {
+    background-color: var(--white);
+    color: var(--gray);
+}
+
+.large_button {
     width: 90%;
     margin: 10px 5%;
     box-shadow: 0 10px 5px -10px var(--claret);
 }
 
-.dates_container{
+.dates_container {
     margin: 40px 0;
 }
 
@@ -99,7 +124,7 @@ main {
     margin: 10px 0;
 }
 
-.date_card button{
+.date_card button {
     width: 100%;
     margin: 10px 0;
 }
@@ -132,4 +157,107 @@ main {
     width: 90%;
     margin: 0 auto;
     padding: 10px;
+}
+
+.date_form {
+    background-color: var(--pink);
+    transition: all 2s cubic-bezier(1, 0, 0, 1);
+    padding-bottom: 10px;
+}
+
+.date_form .date_info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.date_form h2 {
+    background-color: var(--claret);
+    color: var(--white);
+    margin: 0 0 15px 0;
+}
+
+.date_form span {
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    /* margin: 15px 0; */
+    color: var(--claret);
+}
+
+.date_form p {
+    font-size: 15px;
+    color: var(--claret);
+    font-weight: 500;
+    margin: 0;
+}
+
+.date_form span input,
+span textarea {
+    width: 100%;
+    border: none;
+    background-color: var(--white);
+    padding: 4px 10px;
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    color: var(--claret);
+    margin: 10px 0;
+    font-size: 15px;
+    text-align: left;
+    font-family: "Playpen Sans", cursive;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.date_form span input {
+    height: 30px;
+}
+
+.date_form span textarea {
+    height: 90px;
+    resize: none;
+}
+
+.screen_shadow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #00000099;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    display: flex;
+}
+
+.modal {
+    background-color: var(--pink);
+    max-width: 80%;
+    margin: auto;
+    padding: 25px;
+    border-radius: 15px;
+    font-size: 20px;
+    color: var(--claret);
+    font-family: "Playpen Sans", cursive;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.modal p{
+    margin: 0;
+}
+
+.modal button {
+    margin: 10px 0;
 }
